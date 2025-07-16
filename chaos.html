@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>💥 De Nederlandse Chaos 💥</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 60px;
+      animation: pulse 2s infinite;
+    }
+
+    #chaosBtn {
+      padding: 20px 40px;
+      font-size: 1.5em;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 20px red;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    #chaosBtn:hover {
+      transform: scale(1.1);
+      background: darkred;
+    }
+
+    @keyframes pulse {
+      0% { color: red; }
+      50% { color: yellow; }
+      100% { color: red; }
+    }
+
+    .shake {
+      animation: shake 0.5s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0px, 0px); }
+      25% { transform: translate(-5px, 5px); }
+      50% { transform: translate(5px, -5px); }
+      75% { transform: translate(-5px, -5px); }
+      100% { transform: translate(5px, 5px); }
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      pointer-events: none;
+      user-select: none;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>💥 DE NEDERLANDSE CHAOS 💥</h1>
+  <button id="chaosBtn">DRUK OP EIGEN RISICO 😈</button>
+
+  <audio id="explosion" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+
+  <script>
+    const knop = document.getElementById('chaosBtn');
+    const body = document.body;
+    const explosion = document.getElementById('explosion');
+    const emojis = ['💥','🔥','😂','👾','⚡','🌀','🦄','🤯','😵‍💫','🌈','💀','🚨'];
+
+    function randomColor() {
+      return `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
+
+    function spawnEmoji() {
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.top = '-40px';
+      document.body.appendChild(emoji);
+
+      setTimeout(() => emoji.remove(), 3000);
+    }
+
+    knop.addEventListener('click', () => {
+      // Achtergrondkleur veranderen
+      body.style.backgroundColor = randomColor();
+
+      // Shake effect
+      body.classList.add('shake');
+      setTimeout(() => body.classList.remove('shake'), 1000);
+
+      // Geluid afspelen
+      explosion.currentTime = 0;
+      explosion.play();
+
+      // Emoji-regen
+      for (let i = 0; i < 20; i++) {
+        setTimeout(spawnEmoji, i * 100);
+      }
+    });
+  </script>
+</body>
+</html>
